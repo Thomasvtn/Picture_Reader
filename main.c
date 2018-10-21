@@ -58,9 +58,9 @@ int main(void)
 			y = sigmoide((a*hidenlayer[1][0])+(b*hidenlayer[1][1])+Hbias[1]);
 			z = sigmoide((x*outpout[0])+(y*outpout[1])+Obias);
 			
-		//	double delta_out = 2*(z*(1-z))*(theoriqueresult[i] - z);
+			double delta_out = 2*(z*(1-z))*(theoriqueresult[i] - z);
 		//	printf("%f\n",delta_out);
-			double delta_out = (theoriqueresult[i] - z)
+		//	double delta_out = z*(theoriqueresult[i] - z)
 				;
 			double delta_hiden[2] = {0,0};
 			
