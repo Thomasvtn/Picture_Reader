@@ -55,7 +55,7 @@ int main(void)
 			a = xorinpute[i][0];
 			b = xorinpute[i][1]; 
 			x = sigmoide((a*hidenlayer[0][0])+(b*hidenlayer[0][1])+Hbias[0]);
-			y = sigmoide((a*hidenlayer[1][0])+(b*hidenlayer[1][1])+Hbias[0]);
+			y = sigmoide((a*hidenlayer[1][0])+(b*hidenlayer[1][1])+Hbias[1]);
 			z = sigmoide((x*outpout[0])+(y*outpout[1])+Obias);
 			
 		//	double delta_out = 2*(z*(1-z))*(theoriqueresult[i] - z);
@@ -99,7 +99,7 @@ int main(void)
 		a = xorinpute[i][0];
 		b = xorinpute[i][1];
 		x = sigmoide((a*hidenlayer[0][0])+(b*hidenlayer[0][1])+Hbias[0]);
-		y = sigmoide((a*hidenlayer[1][0])+(b*hidenlayer[1][1])+Hbias[0]);
+		y = sigmoide((a*hidenlayer[1][0])+(b*hidenlayer[1][1])+Hbias[1]);
 		z = sigmoide((x*outpout[0])+(y*outpout[1])+Obias);
 
 		printf("for a=%f,b=%f, xor result = %f\n",a,b,z);
