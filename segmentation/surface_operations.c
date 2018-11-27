@@ -1,6 +1,6 @@
 #include "surface_operations.h"
 
-SDL_Surface* create_line_surface(SDL_Surface *picture, int begin, int end)
+/*SDL_Surface* create_line_surface(SDL_Surface *picture, int begin, int end)
 {
 	//printf("create_line_surface\n");
 
@@ -27,9 +27,9 @@ SDL_Surface* create_line_surface(SDL_Surface *picture, int begin, int end)
 	}
 
 	return result;
-}
+}*/
 
-SDL_Surface* create_char_surface(SDL_Surface *picture, int begin, int end)
+/*SDL_Surface* create_char_surface(SDL_Surface *picture, int begin, int end)
 {
 	//printf("create_char_surface\n");
 
@@ -56,7 +56,7 @@ SDL_Surface* create_char_surface(SDL_Surface *picture, int begin, int end)
 	}
 
 	return result;
-}
+}*/
 
 
 SDL_Surface** select_line_surface(int* row_histo, SDL_Surface* picture)
@@ -64,10 +64,13 @@ SDL_Surface** select_line_surface(int* row_histo, SDL_Surface* picture)
 	//printf("select_line_surface\n");
 
 	int height = picture->h;
+	int width = picture->w;
 	SDL_Surface** surface_list = malloc(height*sizeof(SDL_Surface*));
 	int begin;
 	int end;
 	int nblines = 0;
+
+	SDL_Rect srcrect;
 
 	for (int row = 0; row < height; row++)
 	{
@@ -82,7 +85,13 @@ SDL_Surface** select_line_surface(int* row_histo, SDL_Surface* picture)
 		end = row -1;
 
 
-		SDL_Surface* line_surface = create_line_surface(picture, begin, end);
+		//SDL_Surface* line_surface = create_line_surface(picture, begin, end);
+		srcrect.x = begin;
+		srcrect.y = 0;
+		srcrect.w = width;
+		srcrect.h = end;
+		SDL_Surface* line_surface = SDL_CreateRGBSurface(0, width, (end - begin) + 1, 32, 0, 0, 0, 0);
+		SDL_BlitSurface(picture, &srcrect, line_surface, NULL);
 		surface_list[nblines] = line_surface;
 		nblines++;
 	}
@@ -95,10 +104,12 @@ SDL_Surface** select_char_surface(int* col_histo, SDL_Surface* picture)
 	//printf("select_char_surface\n");
 
 	int width = picture->w;
+	int heigth = picture->h;
 	SDL_Surface** char_list = malloc(width*sizeof(SDL_Surface*));
 	int begin;
 	int end;
 	int nbchars = 0;
+	SDL_Rect srcrect;
 
 	for (int col = 0; col < width; col++)
 	{
@@ -114,42 +125,16 @@ SDL_Surface** select_char_surface(int* col_histo, SDL_Surface* picture)
 			col++;
 		}
 		
-		if (col_histo[col +1] != 0)
-		{
-			col += 1;
-
-			while (col < width && col_histo[col] != 0)
-				col++;
-		}
-
-		else if (col_histo[col +2] != 0)
-		{
-			col += 2;
-
-			while (col < width && col_histo[col] != 0)
-				col++;
-		}
-
-		else if (col_histo[col +3] != 0)
-		{
-			col += 3;
-
-			while (col < width && col_histo[col] != 0)
-				col++;
-		}
-		
-		else if (col_histo[col +4] != 0)
-		{
-			col += 4;
-
-			while (col < width && col_histo[col] != 0)
-				col++;
-		}
-
 		end = col;
 
 		//printf("%i  %i\n", begin, end);
-		SDL_Surface* char_surface = create_char_surface(picture, begin, end);
+		//SDL_Surface* char_surface = create_char_surface(picture, begin, end);
+		srcrect.x = 0;
+		srcrect.y = begin;
+		srcrect.w = end;
+		srcrect.h = heigth;
+		SDL_Surface* char_surface = SDL_CreateRGBSurface(0, (end - begin) + 1, heigth, 32, 0, 0, 0, 0);
+		SDL_BlitSurface(picture, &srcrect, char_surface, NULL);
 		char_list[nbchars] = char_surface;
 		nbchars++;
 	}
