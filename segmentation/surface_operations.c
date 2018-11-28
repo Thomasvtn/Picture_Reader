@@ -186,7 +186,7 @@ SDL_Surface* color_to_bw(SDL_Surface *picture)
 
 			Uint8 color = (r + g + b) / 3;
 
-			if (color < 127)
+			if (color < 220)
 				color = 0;
 			else
 				color = 255;
