@@ -73,3 +73,8 @@ void on_OCRBUTTON_clicked()
 	//gtk_label_set_text(GTK_LABEL(g_lbl_res),"button is working");
 	//g_print("%s",filename);
 }
+void on_QUIT_clicked()
+{
+	gtk_main_quit();
+        exit(EXIT_SUCCESS);
+}
