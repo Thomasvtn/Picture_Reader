@@ -2,7 +2,7 @@
 #define BUILDHISTO_H
 
 #include <stdio.h>
-#include <SDL.h>
+//#include <SDL.h>
 #include <SDL/SDL_image.h>
 #include "pixel_operations.h"
 

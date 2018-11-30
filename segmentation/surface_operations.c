@@ -14,12 +14,13 @@ void select_line_surface(SDL_Surface* picture)
 	int nblines = 0;
 
 	int begin;
-	int end;
+	int end = 0;
 
 	SDL_Rect srcrect;
 
 	for (int row = 0; row < height; row++)
 	{
+
 		while(row < height && !row_histo[row])
 			row++;
 
@@ -27,7 +28,7 @@ void select_line_surface(SDL_Surface* picture)
 
 		while(row < height && row_histo[row])
 			row++;
-	
+
 		end = row -1;
 
 		if (end - begin < 5)
@@ -40,6 +41,7 @@ void select_line_surface(SDL_Surface* picture)
 		SDL_Surface* line_surface = SDL_CreateRGBSurface(0, width, (end - begin) + 1, 32, 255, 255, 255, 0);
 		SDL_BlitSurface(picture, &srcrect, line_surface, NULL);
 
+	
 		sprintf(countstr,"%d",nblines);
 		strcpy(final_path, path);
 		strcat(final_path, countstr);
@@ -49,7 +51,6 @@ void select_line_surface(SDL_Surface* picture)
 		select_char_surface(line_surface, nblines);
 		nblines++;
 	}
-
 }
 
 void select_char_surface(SDL_Surface* picture, int nblines)
@@ -67,23 +68,37 @@ void select_char_surface(SDL_Surface* picture, int nblines)
 	int nbchars = 0;
 
 	int begin;
-	int end;
+	int end = 0;
 	SDL_Rect srcrect;
 
 	for (int col = 0; col < width; col++)
 	{
+		SDL_Surface* char_surface;
+
 		while(col < width && col_histo[col] == 0)
 			col++;
 
 		begin = col;
 
-		while(col < width && col_histo[col+1] != 0)
+		if (col - end > 10)
 		{
-			if (col_histo[col] == 0)
-				break;
-			col++;
+			char_surface = SDL_CreateRGBSurface(0, 28, 28, 32, 0, 0, 0, 0);
+
+			sprintf(countlines, "%d", nblines);
+			strcpy(final_path, path);
+			strcat(final_path, countlines);
+			strcat(final_path, charnb);
+			sprintf(countchar, "%d", nbchars);
+			strcat(final_path, countchar);
+			strcat(final_path, ext);
+
+			SDL_SaveBMP(char_surface, final_path);		
+			nbchars++;
 		}
-		
+
+		while(col < width && col_histo[col+1] != 0)
+			col++;
+
 		end = col;
 
 		if (end - begin < 5)
@@ -93,9 +108,9 @@ void select_char_surface(SDL_Surface* picture, int nblines)
 		srcrect.y = 0;
 		srcrect.w = (end - begin);
 		srcrect.h = heigth;
-		SDL_Surface* char_surface = SDL_CreateRGBSurface(0, (end - begin)+1, heigth, 32, 255, 255, 255, 0);
+		char_surface = SDL_CreateRGBSurface(0, (end - begin)+1, heigth, 32, 255, 255, 255, 0);
 		SDL_BlitSurface(picture, &srcrect, char_surface, NULL);
-		
+			
 		sprintf(countlines, "%d", nblines);
 		strcpy(final_path, path);
 		strcat(final_path, countlines);
@@ -106,7 +121,6 @@ void select_char_surface(SDL_Surface* picture, int nblines)
 
 		SDL_SaveBMP(char_surface, final_path);		
 		nbchars++;
-
 	}
 }
 
