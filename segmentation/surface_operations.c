@@ -110,6 +110,15 @@ void select_char_surface(SDL_Surface* picture, int nblines)
 		srcrect.h = heigth;
 		char_surface = SDL_CreateRGBSurface(0, (end - begin)+1, heigth, 32, 255, 255, 255, 0);
 		SDL_BlitSurface(picture, &srcrect, char_surface, NULL);
+		SDL_Surface* char_surface_resized;
+
+		double width = char_surface->w;
+		double heigth = char_surface->h;
+
+		double zoomx = 28 / width;
+		double zoomy = 28 / heigth;
+
+		char_surface_resized = zoomSurface(char_surface, zoomx, zoomy, 1);
 			
 		sprintf(countlines, "%d", nblines);
 		strcpy(final_path, path);
@@ -119,7 +128,7 @@ void select_char_surface(SDL_Surface* picture, int nblines)
 		strcat(final_path, countchar);
 		strcat(final_path, ext);
 
-		SDL_SaveBMP(char_surface, final_path);		
+		SDL_SaveBMP(char_surface_resized, final_path);		
 		nbchars++;
 	}
 }
