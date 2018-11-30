@@ -6,6 +6,7 @@
 #include "sdl_func.h"
 #include "pixel_operations.h"
 #include "SDL/SDL_image.h"
+#include "SDL_rotozoom.h"
 
 //SDL_Surface* create_line_surface(SDL_Surface *picture, int begin, int end);
 //SDL_Surface* create_char_surface(SDL_Surface *picture, int begin, int end);

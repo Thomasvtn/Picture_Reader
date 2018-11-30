@@ -135,7 +135,17 @@ SDL_Surface** select_char_surface(int* col_histo, SDL_Surface* picture)
 		srcrect.h = heigth;
 		SDL_Surface* char_surface = SDL_CreateRGBSurface(0, (end - begin) + 1, heigth, 32, 0, 0, 0, 0);
 		SDL_BlitSurface(picture, &srcrect, char_surface, NULL);
-		char_list[nbchars] = char_surface;
+		SDL_Surface* char_surface_resized;
+
+		width = char_surface->w;
+		heigth = char_surface->h;
+		double zoomx = 28/width;
+		double zoomy = 28/heigth;
+
+		char_surface_resized = zoomSurface(char_surface, zoomx, zoomy, 1);
+
+
+		char_list[nbchars] = char_surface_resized;
 		nbchars++;
 	}
 
