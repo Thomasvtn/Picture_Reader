@@ -102,13 +102,12 @@ void on_TRAINBUTTON_clicked()
 	}*/
 
 	double **inputliste = malloc(55 * sizeof(double));
-	int j = 97;
 	init_sdl();
-	for(int i=97;i<55+97;i++)
+	for(int i=0;i<55;i++)
 	{
 		char name[50]="../ressources/database/1/";
 		char ch[10];
-		sprintf(ch, "%d", (i -97));
+		sprintf(ch, "%d",(char)correspondlist[i]);
 		strcat(name,ch);
 		strcat(name,".bmp");
 		puts(name);
@@ -120,11 +119,10 @@ void on_TRAINBUTTON_clicked()
 		{
 			image2[j]=image1[j];
 		}
-		inputliste[i-97]=image2;
-		j++;
+		inputliste[i]=image2;
 	}
 
-	train(&net, inputliste, correspondlist, 1000, 55);
+	train(&net, inputliste, correspondlist, 1000, 54);
 
 	printf("train finish\n");
 }
