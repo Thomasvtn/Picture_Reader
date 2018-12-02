@@ -56,7 +56,12 @@ void clica(GtkFileChooser *filechooserbutton ){//this button was inserted throug
 	gtk_image_set_from_file (GTK_IMAGE (viewimage), filename);
 
 }
+void on_TRAINBUTTON_clicked()
+{
 
+    //Launch training
+
+}
 void on_OCRBUTTON_clicked()
 {
 	char *path = "../segmentation/main ";
