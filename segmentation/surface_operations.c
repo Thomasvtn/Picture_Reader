@@ -115,8 +115,8 @@ void select_char_surface(SDL_Surface* picture, int nblines)
 		double width = char_surface->w;
 		double heigth = char_surface->h;
 
-		double zoomx = 28 / width;
-		double zoomy = 28 / heigth;
+		double zoomx = 16 / width;
+		double zoomy = 16 / heigth;
 
 		char_surface_resized = zoomSurface(char_surface, zoomx, zoomy, 1);
 			
