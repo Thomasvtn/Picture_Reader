@@ -55,13 +55,39 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="OCRBUTTON">
-            <property name="label" translatable="yes">Launch recognition</property>
-            <property name="name">OCRBUTTON</property>
+          <object class="GtkGrid">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_OCRBUTTON_clicked" swapped="no"/>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="OCRBUTTON">
+                <property name="label" translatable="yes">Launch recognition</property>
+                <property name="name">OCRBUTTON</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="hexpand">True</property>
+                <signal name="clicked" handler="on_OCRBUTTON_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="TRAINBUTTON">
+                <property name="label" translatable="yes">Train</property>
+		<property name="name">TRAINBUTTON</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="hexpand">True</property>
+                <signal name="clicked" handler="on_TRAINBUTTON_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>

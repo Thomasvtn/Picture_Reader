@@ -1,22 +1,28 @@
-CC=gcc
+GCC=gcc
 
-CFLAGS   = -Wunused -Wall -fPIC -I. -c -O3 -D REENTRANT
-CFLAGS  += -DGTK_DISABLE_DEPRECATED=1 -DGDK_DISABLE_DEPRECATED
-CFLAGS  += -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED
-CFLAGS  += -DGTK_MULTIHEAD_SAFE=1 -DGTK_MULTIDEVICE_SAFE=1
-CFLAGS  += `pkg-config gtk+-3.0 --cflags`
+CFLAGS=  -Wunused -Wall -fPIC -D REENTRANT
+CFLAGS += -DGTK_DISABLE_DEPRECATED=1 -DGDK_DISABLE_DEPRECATED
+CFLAGS += -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED
+CFLAGS += -DGTK_MULTIHEAD_SAFE=1 -DGTK_MULTIDEVICE_SAFE=1
+CFLAGS += `pkg-config --cflags gtk+-3.0`
+CFLAGS += `pkg-config --cflags sdl` -MMD
+CFLAGS +=  -Wextra -Werror -std=c99
 
-LDFLAGS  = `pkg-config gtk+-3.0 --libs`
-LDFLAGS += `pkg-config gmodule-2.0 --libs`
+LDLIBS= `pkg-config --libs sdl` -lSDL_image -lSDL_gfx
 
-FILES = main.o
+LDFLAGS= `pkg-config gtk+-3.0 --libs`
+LDFLAGS += `pkg-config gmodule-2.0 --libs` -lm
 
-.c.o:
-	$(MAKE) -C ../segmentation/
-	$(CC) -c $< $(CFLAGS)
+EXEC=prog.exe
+SRC=main.c ../segmentation/buildhisto.c ../segmentation/surface_operations.c \
+	../segmentation/pixel_operations.c ../segmentation/sdl_func.c \
+	../neural_network/layer.c ../neural_network/Network.c
 
-all:$(FILES)
-	$(CC) -o ocr $(FILES) $(LDFLAGS)
+all:main
 
+main: 
+	$(GCC) $(CFLAGS) $(SRC) -o $(EXEC) $(LDFLAGS) $(LDLIBS) 
 clean:
-	rm -f *.o ocr *core*
+	$(RM) $(EXEC)
+	$(RM) *.o
+	$(RM) *.d
