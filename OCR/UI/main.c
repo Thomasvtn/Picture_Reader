@@ -166,7 +166,7 @@ void on_OCRBUTTON_clicked()
 	select_line_surface(image_surface, finalresult, net);
 	for(size_t i = 0; i < 1000; i++)
 		printf("%c", finalresult[i]);
-
+	freeall(&net);
 	//gtk_label_set_text(GTK_LABEL(g_lbl_res),"button is working");
 	//g_print("%s",filename);
 }
