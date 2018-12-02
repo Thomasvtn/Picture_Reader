@@ -76,6 +76,7 @@
             <child>
               <object class="GtkButton" id="TRAINBUTTON">
                 <property name="label" translatable="yes">Train</property>
+		<property name="name">TRAINBUTTON</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

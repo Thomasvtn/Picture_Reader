@@ -63,13 +63,15 @@ void clica(GtkFileChooser *filechooserbutton ){//this button was inserted throug
 
 }
 
-void on_TRAIN_clicked()
+void on_TRAINBUTTON_clicked()
 {	
 	char path[] = "../ressources/database/1/";
 
 	double **list_bin = list_binlist(path);
 
-	train(&net, list_bin, correspondlist, 1000, 58);
+	train(&net, list_bin, correspondlist, 1000, 54);
+
+	printf("train finish\n");
 }
 
 void on_OCRBUTTON_clicked()
@@ -83,7 +85,6 @@ void on_OCRBUTTON_clicked()
 	char finalresult[1000];
 
 	select_line_surface(image_surface, finalresult, net);
-
 	for(size_t i = 0; i < 1000; i++)
 		printf("%c", finalresult[i]);
 

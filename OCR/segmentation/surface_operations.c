@@ -1,7 +1,5 @@
 #include "surface_operations.h"
 
-/*char listfinal[] = {a, A, b, B, c, C, d, D, e, E, f, F, g, G, h, H, i, I, j, J, k, K, l, L, m, M, n, N, o, O, p, P, point, POINT, pv, PV, q = 36; Q = 37; r = 38; R = 39; s = 40; S = 41; t = 42; T = 43; u = 44; U = 45; v = 46; V = 47; virgule = 48; VIRGULE = 49; w = 50; W = 51; x = 52; X = 53; y = 54; Y = 55; z = 56; Z = 57};*/
-
 void select_line_surface(SDL_Surface* picture, char finalresult[], Network net)
 {
 	color_bw(picture);
@@ -121,8 +119,8 @@ void select_char_surface(SDL_Surface* picture, int nblines, char finalresult[], 
 		double width = char_surface->w;
 		double heigth = char_surface->h;
 
-		double zoomx = 28 / width;
-		double zoomy = 28 / heigth;
+		double zoomx = 16 / width;
+		double zoomy = 16 / heigth;
 
 		char_surface_resized = zoomSurface(char_surface, zoomx, zoomy, 1);
 
@@ -137,6 +135,7 @@ void select_char_surface(SDL_Surface* picture, int nblines, char finalresult[], 
 		strcat(final_path, ext);
 		SDL_SaveBMP(char_surface_resized, final_path);
 		nbchars++;
+
 		double *out = calloc(net.input_dim, sizeof(double));
 
 		char the_one = (char)predict(&net, int_, out);
@@ -211,7 +210,7 @@ double** list_binlist(char path[]) //../ressources/database/1/
 
 	init_sdl();
 
-	for(int i = 97; i < 58+97; i++)
+	for(int i = 97; i < 55+97; i++)
 	{
 		char final_path[70];
 		char ibis[5];
@@ -219,7 +218,7 @@ double** list_binlist(char path[]) //../ressources/database/1/
 
 		strcpy(final_path, path);
 
-		sprintf(ibis, "%d", i);
+		sprintf(ibis, "%d", (i-97));
 
 		strcat(final_path, ibis);
 
@@ -227,7 +226,13 @@ double** list_binlist(char path[]) //../ressources/database/1/
 
 		SDL_Surface* image_surface = load_image(final_path);
 
+		printf("%s\n", final_path);
+
 		double *image1 = surface_binlist(image_surface);
+
+		for (size_t i = 0; i < 256; i++)
+			printf("%f", *(image1 +i));
+		printf("\n");
 
 		inputlist[i-97] = image1;
 	}
