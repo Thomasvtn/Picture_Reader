@@ -65,11 +65,66 @@ void clica(GtkFileChooser *filechooserbutton ){//this button was inserted throug
 
 void on_TRAINBUTTON_clicked()
 {	
-	char path[] = "../ressources/database/1/";
+	/*char path[] = "../ressources/database/1/";
 
-	double **list_bin = list_binlist(path);
+	double **inputlist = malloc(55 * sizeof(double));
 
-	train(&net, list_bin, correspondlist, 1000, 54);
+	init_sdl();
+
+	for(int i = 97; i < 55+97; i++)
+	{
+		char final_path[70];
+		char ibis[5];
+		char ext[] = ".bmp";
+
+		strcpy(final_path, path);
+
+		sprintf(ibis, "%d", (i-97));
+
+		strcat(final_path, ibis);
+
+		strcat(final_path, ext);
+
+		SDL_Surface* image_surface = load_image(final_path);
+
+		double *image1 = surface_binlist(image_surface);
+
+		inputlist[i-97] = image1;
+	}
+
+	for (size_t i = 0; i < 55; i++)
+	{
+		for (size_t j = 0; j < 256; j++)
+		{
+			printf("%i ", (int)inputlist[i][j]);
+		}
+		printf("\n");
+	}*/
+
+	double **inputliste = malloc(55 * sizeof(double));
+	int j = 97;
+	init_sdl();
+	for(int i=97;i<55+97;i++)
+	{
+		char name[50]="../ressources/database/1/";
+		char ch[10];
+		sprintf(ch, "%d", (i -97));
+		strcat(name,ch);
+		strcat(name,".bmp");
+		puts(name);
+		SDL_Surface* image_surface = load_image(name);
+		int *image1 = surface_binlist(image_surface);
+		double *image2 = malloc(256*sizeof(double));
+		printf("\n");
+		for(int j = 0;j<256;j++)
+		{
+			image2[j]=image1[j];
+		}
+		inputliste[i-97]=image2;
+		j++;
+	}
+
+	train(&net, inputliste, correspondlist, 1000, 55);
 
 	printf("train finish\n");
 }

@@ -13,7 +13,7 @@
 void select_line_surface(SDL_Surface* picture, char finalresult[], Network net);
 void select_char_surface(SDL_Surface* picture, int nblines, char finalresult[], Network net);
 void color_bw(SDL_Surface* picture);
-double* surface_binlist(SDL_Surface* picture);
-double** list_binlist(char path[]); 
+int* surface_binlist(SDL_Surface* picture);
+//double** list_binlist(char path[]); 
 
 #endif

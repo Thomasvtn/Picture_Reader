@@ -124,7 +124,10 @@ void select_char_surface(SDL_Surface* picture, int nblines, char finalresult[], 
 
 		char_surface_resized = zoomSurface(char_surface, zoomx, zoomy, 1);
 
-		double *int_ = surface_binlist(char_surface_resized);
+		int *int_ = surface_binlist(char_surface_resized);
+		double *int2_ = malloc(256*sizeof(double));
+		for(int j = 0; j <256; j++)
+			int_[j] = int2_[j];
 			
 		sprintf(countlines, "%d", nblines);
 		strcpy(final_path, path);
@@ -138,7 +141,7 @@ void select_char_surface(SDL_Surface* picture, int nblines, char finalresult[], 
 
 		double *out = calloc(net.input_dim, sizeof(double));
 
-		char the_one = (char)predict(&net, int_, out);
+		char the_one = (char)predict(&net, int2_, out);
 
 		char *tmp = malloc(2*sizeof(char));
 		tmp[0] = the_one;
@@ -180,11 +183,12 @@ void color_bw(SDL_Surface* picture)
 	}
 }
 
-double* surface_binlist(SDL_Surface* picture)
+int* surface_binlist(SDL_Surface* picture)
 {
 	int width = picture->w;
 	int height = picture->h;
-	double* result = malloc((width*height)*sizeof(double));
+
+	int* result = malloc((width*height)*sizeof(int));
 	Uint8 r, g ,b;
 	Uint32 pixel;
 
@@ -204,7 +208,7 @@ double* surface_binlist(SDL_Surface* picture)
 	return result;
 }
 
-double** list_binlist(char path[]) //../ressources/database/1/
+/*double** list_binlist(char path[]) //../ressources/database/1/
 {
 	double **inputlist = malloc(58 * sizeof(double));
 
@@ -226,16 +230,16 @@ double** list_binlist(char path[]) //../ressources/database/1/
 
 		SDL_Surface* image_surface = load_image(final_path);
 
-		printf("%s\n", final_path);
+		//printf("%s\n", final_path);
 
 		double *image1 = surface_binlist(image_surface);
-
+		
 		for (size_t i = 0; i < 256; i++)
-			printf("%f", *(image1 +i));
+			printf("%i", (int)*(image2 +i));
 		printf("\n");
 
 		inputlist[i-97] = image1;
 	}
 
 	return inputlist;
-}
+}*/
