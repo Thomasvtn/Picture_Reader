@@ -16,6 +16,12 @@ Network net;
 char *filename;
 int main(int argc, char **argv)
 {
+
+	initnet(&net,256);
+	add_layer(&net,100);
+	add_layer(&net,127);
+
+
 	GtkBuilder *builder;
 	GtkWidget  *window;
 	GError     *error = NULL;
@@ -107,7 +113,7 @@ void on_TRAINBUTTON_clicked()
 	{
 		char name[50]="../ressources/database/1/";
 		char ch[10];
-		sprintf(ch, "%d",(char)correspondlist[i]);
+		sprintf(ch, "%d",i);
 		strcat(name,ch);
 		strcat(name,".bmp");
 		puts(name);
@@ -122,17 +128,37 @@ void on_TRAINBUTTON_clicked()
 		inputliste[i]=image2;
 	}
 
-	train(&net, inputliste, correspondlist, 1000, 54);
+	train(&net, inputliste, correspondlist, 1000, 55);
 
 	printf("train finish\n");
 }
 
 void on_OCRBUTTON_clicked()
 {
-	initnet(&net,256);
-	add_layer(&net,100);
-	add_layer(&net,127);
+	double **inputliste = malloc(55 * sizeof(double));
+	init_sdl();
+	for(int i=0;i<55;i++)
+	{
+		char name[50]="../ressources/database/1/";
+		char ch[10];
+		sprintf(ch, "%d",i);
+		strcat(name,ch);
+		strcat(name,".bmp");
+		puts(name);
+		SDL_Surface* image_surface = load_image(name);
+		int *image1 = surface_binlist(image_surface);
+		double *image2 = malloc(256*sizeof(double));
+		printf("\n");
+		for(int j = 0;j<256;j++)
+		{
+			image2[j]=image1[j];
+		}
+		inputliste[i]=image2;
+	}
 
+	train(&net, inputliste, correspondlist, 1000, 55);
+
+	printf("train finish\n");
 	SDL_Surface *image_surface = load_image(filename);	
 	
 	char finalresult[1000];
