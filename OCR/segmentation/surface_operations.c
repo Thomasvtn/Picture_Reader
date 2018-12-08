@@ -93,7 +93,6 @@ void select_char_surface(SDL_Surface* picture, int nblines, char finalresult[], 
 			sprintf(countchar, "%d", nbchars);
 			strcat(final_path, countchar);
 			strcat(final_path, ext);
-			printf("%s\n", final_path);
 			SDL_SaveBMP(char_surface, final_path);	
 			nbchars++;
 
@@ -141,14 +140,15 @@ void select_char_surface(SDL_Surface* picture, int nblines, char finalresult[], 
 
 		double *out = calloc(net.input_dim, sizeof(double));
 
-		char the_one = (char)predict(&net, int2_, out);
+		//char the_one = (char)predict(&net, int2_, out);
+		printf("%c\n", (char)predict(&net, int2_, out));
 
-		char *tmp = malloc(2*sizeof(char));
-		tmp[0] = the_one;
+		//char *tmp = malloc(2*sizeof(char));
+		//tmp[0] = the_one;
 
-		strcat(finalresult, tmp);
+		//strcat(finalresult, tmp);
 
-		free(tmp);
+		//free(tmp);
 	}
 }
 
